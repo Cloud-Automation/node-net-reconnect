@@ -14,7 +14,7 @@ When you want to stay connected with a TCP server you need to implement a reconn
       'retryTime' : 1000, // 1s for every retry
       'retryAlways' : true // retry even if the connection was closed on purpose
     }
-    let Reconnect = require('net-reconnect')
+    let Reconnect = require('node-net-reconnect')
     let recon = new Reconnect(socket, options)
 
     socket.connect(options)
