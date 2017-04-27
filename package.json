@@ -1,6 +1,6 @@
 {
   "name": "node-net-reconnect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reconnect logic for TCP sockets.",
   "main": "index.js",
   "scripts": {
