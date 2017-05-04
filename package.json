@@ -1,6 +1,6 @@
 {
   "name": "node-net-reconnect",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Reconnect logic for TCP sockets.",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/cloud-automation/node-net-reconnect#readme",
   "dependencies": {
-    "debug": "^2.6.4"
+    "debug": "^2.6.4",
+    "net-keepalive": "^0.4.1"
   },
   "devDependencies": {
     "mocha": "^3.3.0",

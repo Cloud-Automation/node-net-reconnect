@@ -2,23 +2,21 @@ let Reconnect = require('../src/index.js')
 let net = require('net')
 let socket = new net.Socket()
 let options = { 'host': process.argv[2], 'port': process.argv[3], 'retryAlways': true }
-let recon = Reconnect.apply(socket, options)
+let NetKeepAlive = require('net-keepalive')
 
+Reconnect.apply(socket, options)
+
+socket.setKeepAlive(true, 1000)
 socket.setTimeout(1000)
 
 socket.connect(options)
 
 let timeout
-let counter = 0
 socket.on('connect', function () {
-  timeout = setTimeout(function () {
-    counter += 1
-    if (counter === 2) {
-      recon.end()
-      return
-    }
-    socket.end()
-  }, 10000)
+  NetKeepAlive.setKeepAliveInterval(socket, 1000)
+  NetKeepAlive.setKeepAliveProbes(socket, 1)
+
+  console.log('Unplug the network connection')
 })
 
 socket.on('close', function () {

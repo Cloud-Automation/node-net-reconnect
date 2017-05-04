@@ -1,4 +1,5 @@
 let debug = require('debug')('net-reconnect')
+let NetKeepAlive = require('net-keepalive')
 
 class NetReconnect {
 
@@ -7,6 +8,9 @@ class NetReconnect {
     this._options = options
     this._retryTime = options.retryTime || 1000
     this._retryAlways = options.retryAlways || false
+    this._keepAliveDelay = Math.max(options.keepAliveDelay, 1000) || 1000
+    this._keepAliveInterval = Math.max(options.keepAliveInterval, 1000) || 1000
+    this._keepAliveProbes = Math.max(Math.min(options.keepAliveProbes, 1), 20) || 1
     this._closing = false
 
     this._socket.on('connect', this._onConnect.bind(this))
@@ -29,6 +33,10 @@ class NetReconnect {
     if (this._closing) {
       return
     }
+
+    this._socket.setKeepAlive(true, this._keepAliveDelay)
+    NetKeepAlive.setKeepAliveInterval(this._socket, this._keepAliveInterval)
+    NetKeepAlive.setKeepAliveProbes(this._socket, this._keepAliveProbes)
 
     debug('online')
   }
