@@ -6,6 +6,9 @@
   "scripts": {
     "test": "standard && mocha"
   },
+  "engines": {
+    "node": ">=10.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloud-automation/node-net-reconnect.git"
